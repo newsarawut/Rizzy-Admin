@@ -20,7 +20,7 @@ const OrderDetails = ({ params }: { params: { orderId: string } }) => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          `http://localhost:3000/api/orders/${params.orderId}`
+          `${process.env.ADMIN_DASHBOARD_URL}/orders/${params.orderId}`
         );
         const { orderDetails, customer } = await res.json();
         setOrderId(orderDetails._id);
