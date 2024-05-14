@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import {
   getSalesPerMonth,
-  getTotalCustomer,
+  getTotalCustomers,
   getTotalSales,
 } from "@/lib/actions/actions";
 import { CircleDollarSign, ShoppingBag, UserRound } from "lucide-react";
