@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 
+import { Separator } from "../ui/separator";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,19 +16,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { Separator } from "../ui/separator";
 import { Textarea } from "../ui/textarea";
-import ImageUpload from "../custom ui/imageUpload";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
 import MultiText from "../custom ui/MultiText";
 import MultiSelect from "../custom ui/MultiSelect";
 import Loader from "../custom ui/Loader";
+import ImageUpload from "../custom ui/imageUpload";
 
 const formSchema = z.object({
-  title: z.string().min(2).max(50),
+  title: z.string().min(2).max(20),
   description: z.string().min(2).max(500).trim(),
   media: z.array(z.string()),
   category: z.string(),
@@ -40,7 +39,7 @@ const formSchema = z.object({
 });
 
 interface ProductFormProps {
-  initialData?: ProductType | null;
+  initialData?: ProductType | null; //Must have "?" to make it optional
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
@@ -51,7 +50,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 
   const getCollections = async () => {
     try {
-      setLoading(true);
       const res = await fetch("/api/collections", {
         method: "GET",
       });
@@ -103,6 +101,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      setLoading(true);
       const url = initialData
         ? `/api/products/${initialData._id}`
         : "/api/products";
@@ -112,12 +111,12 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
       });
       if (res.ok) {
         setLoading(false);
-        toast.success(`Product ${initialData ? "updated" : "created"} `);
+        toast.success(`Product ${initialData ? "updated" : "created"}`);
         window.location.href = "/products";
         router.push("/products");
       }
     } catch (err) {
-      console.log("products_POST]", err);
+      console.log("[products_POST]", err);
       toast.error("Something went wrong! Please try again.");
     }
   };
@@ -193,6 +192,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               </FormItem>
             )}
           />
+
           <div className="md:grid md:grid-cols-3 gap-8">
             <FormField
               control={form.control}
@@ -351,6 +351,7 @@ const ProductForm: React.FC<ProductFormProps> = ({ initialData }) => {
               )}
             />
           </div>
+
           <div className="flex gap-10">
             <Button type="submit" className="bg-blue-1 text-white">
               Submit

@@ -4,6 +4,7 @@ import { DataTable } from "@/components/custom ui/DataTable";
 import Loader from "@/components/custom ui/Loader";
 import { columns } from "@/components/orders/OrderColumns";
 import { Separator } from "@/components/ui/separator";
+
 import { useEffect, useState } from "react";
 
 const Orders = () => {
@@ -17,7 +18,7 @@ const Orders = () => {
       setOrders(data);
       setLoading(false);
     } catch (err) {
-      console.log("[orders_GET]", err);
+      console.log("[orders_GET", err);
     }
   };
 

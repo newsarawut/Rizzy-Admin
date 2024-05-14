@@ -13,7 +13,7 @@ export const getTotalSales = async () => {
   return { totalOrders, totalRevenue };
 };
 
-export const getTotalCustomer = async () => {
+export const getTotalCustomers = async () => {
   await connectToDB();
   const customers = await Customer.find();
   const totalCustomers = customers.length;
@@ -36,7 +36,7 @@ export const getSalesPerMonth = async () => {
     const month = new Intl.DateTimeFormat("en-US", { month: "short" }).format(
       new Date(0, i)
     );
-    // if i === 5 => month = 'Jun'
+    // if i === 5 => month = "Jun"
     return { name: month, sales: salesPerMonth[i] || 0 };
   });
 

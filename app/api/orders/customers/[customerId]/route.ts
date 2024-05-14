@@ -12,14 +12,13 @@ export const GET = async (
 
     const orders = await Order.find({
       customerClerkId: params.customerId,
-    }).populate({
-      path: "products.product",
-      model: Product,
-    });
+    }).populate({ path: "products.product", model: Product });
 
     return NextResponse.json(orders, { status: 200 });
   } catch (err) {
-    console.log("[customerId_GET]", err);
+    console.log("[customerId_GET", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
 };
+
+export const dynamic = "force-dynamic";

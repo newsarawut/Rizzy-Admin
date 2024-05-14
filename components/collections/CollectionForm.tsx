@@ -3,8 +3,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
+import { Separator } from "../ui/separator";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,13 +16,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { Separator } from "../ui/separator";
 import { Textarea } from "../ui/textarea";
-import ImageUpload from "../custom ui/imageUpload";
-import React, { useState } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import Delete from "../custom ui/Delete";
+import ImageUpload from "../custom ui/imageUpload";
 
 const formSchema = z.object({
   title: z.string().min(2).max(20),
@@ -30,7 +29,7 @@ const formSchema = z.object({
 });
 
 interface CollectionFormProps {
-  initialData?: CollectionType | null;
+  initialData?: CollectionType | null; //Must have "?" to make it optional
 }
 
 const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
@@ -71,12 +70,12 @@ const CollectionForm: React.FC<CollectionFormProps> = ({ initialData }) => {
       });
       if (res.ok) {
         setLoading(false);
-        toast.success(`Collection ${initialData ? "updated" : "created"} `);
+        toast.success(`Collection ${initialData ? "updated" : "created"}`);
         window.location.href = "/collections";
         router.push("/collections");
       }
     } catch (err) {
-      console.log("Collections_POST]", err);
+      console.log("[collections_POST]", err);
       toast.error("Something went wrong! Please try again.");
     }
   };

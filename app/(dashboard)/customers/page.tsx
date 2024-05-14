@@ -3,7 +3,6 @@ import { columns } from "@/components/customers/CustomerColumns";
 import { Separator } from "@/components/ui/separator";
 import Customer from "@/lib/models/Customer";
 import { connectToDB } from "@/lib/mongoDB";
-import React from "react";
 
 const Customers = async () => {
   await connectToDB();

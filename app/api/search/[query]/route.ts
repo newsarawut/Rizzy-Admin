@@ -9,15 +9,15 @@ export const GET = async (
   try {
     await connectToDB();
 
-    const searchProducts = await Product.find({
+    const searchedProducts = await Product.find({
       $or: [
         { title: { $regex: params.query, $options: "i" } },
         { category: { $regex: params.query, $options: "i" } },
-        { tags: { $in: [new RegExp(params.query), "i"] } },
+        { tags: { $in: [new RegExp(params.query, "i")] } }, // $in is used to match an array of values
       ],
     });
 
-    return NextResponse.json(searchProducts, { status: 200 });
+    return NextResponse.json(searchedProducts, { status: 200 });
   } catch (err) {
     console.log("[search_GET]", err);
     return new NextResponse("Internal Server Error", { status: 500 });

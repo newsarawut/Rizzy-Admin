@@ -1,7 +1,7 @@
 import Collection from "@/lib/models/Collection";
 import Product from "@/lib/models/Product";
 import { connectToDB } from "@/lib/mongoDB";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -105,7 +105,7 @@ export const POST = async (
       ),
     ]);
 
-    // Update Product
+    // Update product
     const updatedProduct = await Product.findByIdAndUpdate(
       product._id,
       {
@@ -156,7 +156,7 @@ export const DELETE = async (
 
     await Product.findByIdAndDelete(product._id);
 
-    // update collection
+    // Update collections
     await Promise.all(
       product.collections.map((collectionId: string) =>
         Collection.findByIdAndUpdate(collectionId, {
