@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
       cancel_url: `${process.env.ECOMMERCE_STORE_URL}/cart`,
     });
 
-    return NextResponse.json(session, { headers: corsHeaders });
+    return NextResponse.json(session, { headers: corsHeaders }); // Include CORS headers
   } catch (err) {
     console.log("[checkout_POST]", err);
     return new NextResponse("Internal Server Error", { status: 500 });
