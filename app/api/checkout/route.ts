@@ -7,10 +7,6 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
-export async function OPTIONS() {
-  return NextResponse.json({}, { headers: corsHeaders });
-}
-
 export async function POST(req: NextRequest) {
   try {
     const { cartItems, customer } = await req.json();
@@ -49,9 +45,19 @@ export async function POST(req: NextRequest) {
       cancel_url: `${process.env.ECOMMERCE_STORE_URL}/cart`,
     });
 
-    return NextResponse.json(session, { headers: corsHeaders }); // Include CORS headers
+    // Include CORS headers in the response
+    return new NextResponse(JSON.stringify(session), {
+      headers: corsHeaders,
+      status: 200,
+    });
   } catch (err) {
     console.log("[checkout_POST]", err);
     return new NextResponse("Internal Server Error", { status: 500 });
   }
+}
+
+// For the OPTIONS request method
+export async function OPTIONS() {
+  // Respond with CORS headers for OPTIONS requests
+  return new NextResponse(null, { headers: corsHeaders });
 }
